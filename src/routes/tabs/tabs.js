@@ -16,7 +16,7 @@ const Tabs = () => {
         <NavigationContainer>
             <tab.Navigator
                 tabBarOptions={{
-                activeTintColor: '#FF3B53',
+                activeTintColor: '#1DA1F2',
                 style : {
                     backgroundColor : theme.bg,
                     borderTopColor : theme.bg

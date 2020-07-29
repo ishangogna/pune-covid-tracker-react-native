@@ -18,15 +18,26 @@ const MainPage = () => {
     const [month, setMonth] = useState([
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Oct', 'Nov', 'Dec'
     ]);
+    const [delta, setDelta] = useState([])
 
     useEffect(()=>{
         var today = new Date();
         setDate(today.getDate().toString() + '-' + month[today.getMonth()] + '-' + today.getFullYear().toString().slice(2,4))
     },[date])
 
-    const url = 'https://api.covid19india.org/state_district_wise.json';
     useEffect(()=>{
-        fetch(url)
+        const delta_url = 'https://api.covid19india.org/states_daily.json';
+        fetch(delta_url)
+        .then(response=>response.json())
+        .then(data => {
+           
+        });
+        
+    },[date])
+
+    const district_url = 'https://api.covid19india.org/state_district_wise.json';
+    useEffect(()=>{
+        fetch(district_url)
         .then(response=>response.json())
         .then(data=>{
             setConfirmed(data.Maharashtra.districtData.Pune.confirmed);
@@ -34,10 +45,11 @@ const MainPage = () => {
             setRecovered(data.Maharashtra.districtData.Pune.recovered);
         })
     },[])
+
+
     return ( 
         <View style = {[styles.mainContainer,{backgroundColor : theme.bg}]}>
-            <Text style = {[styles.header,{color : theme.syntax}]}>Corona Tracker</Text>
-            <Text style = {{color : theme.syntax}}>{date}</Text>
+            <Text style = {{color : theme.syntax, textAlign : 'center', marginTop : windowHeight/20}}>{date}</Text>
             <View style = {styles.mainInfo}>
                 <Confirmed confirmed = {confirmed}/>
                 <Active active = {active}/>
@@ -52,15 +64,10 @@ const styles = StyleSheet.create({
         flex : 1,
         paddingHorizontal : 20
     },
-    header : {
-        marginTop : windowHeight/15,
-        fontSize : 32,
-        fontWeight : 'bold'
-    },
     mainInfo : {
         marginTop : 20,
-        flexDirection : 'row',
-        justifyContent : 'space-between'
+        flexDirection : 'column',
+        paddingHorizontal : 50,
     },
 })
  

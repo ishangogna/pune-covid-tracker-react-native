@@ -4,12 +4,12 @@ import { colors } from '../colors';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Recovered = ( {recovered} ) => {
+const Recovered = ( {recovered, delta } ) => {
     return ( 
         <View style = {styles.infoContainer}>
             <Text style = {styles.title}>Recovered</Text>
             <View style = {styles.numbers}>
-                <Text style = {styles.plus}>+3,201</Text>
+                <Text style = {styles.plus}>{delta? delta : null}</Text>
                 <Text style = {styles.total}>{recovered}</Text>
             </View>
         </View>
@@ -18,9 +18,12 @@ const Recovered = ( {recovered} ) => {
 const styles = StyleSheet.create({
     infoContainer : {
         height : windowHeight/9,
-        width : windowWidth/4,
         justifyContent : 'space-between',
         alignItems : 'center',
+        backgroundColor : colors.recoveredLight,
+        padding : 10,
+        borderRadius : windowHeight/80,
+        marginBottom : 10, 
     },
     numbers : {
         alignItems : 'center'
