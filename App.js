@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Tabs from './src/routes/tabs/tabs';
 import ThemeContextProvider from './src/contexts/ThemeContext';
 
+
 export default function App() {
   return (
     <ThemeContextProvider>

@@ -9,7 +9,7 @@ const SettingsPage = () => {
     const { theme, dispatch } = useContext(ThemeContext);
     return ( 
         <View style = {[styles.settingsContainer,{ backgroundColor : theme.bg}]}>
-            <Text style = {[styles.header, {color : theme.syntax}]}>Settings Page</Text>
+            <Text style = {[styles.header, {color : theme.syntax}]}>Settings</Text>
             <View style = {styles.settings}>
                 <Text style = {styles.version}>v1.0.0</Text>
                 <Text style = {[styles.subHeading,{color : theme.syntax}]}>Change themes</Text>
