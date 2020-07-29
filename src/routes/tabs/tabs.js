@@ -6,7 +6,7 @@ import React, { useContext } from 'react';
 import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { ThemeContext } from '../../contexts/ThemeContext';
-
+import Swipe from './swipe';
 
 const tab = createBottomTabNavigator();
 
@@ -26,7 +26,7 @@ const Tabs = () => {
             >
                 <tab.Screen 
                     name = 'Home' 
-                    component = {MainPage}
+                    component = {Swipe}
                     options = {{
                         tabBarIcon: ({ color, size }) => (
                             <Entypo name="home" size={size} color={color} />

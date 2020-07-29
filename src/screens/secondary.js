@@ -10,7 +10,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-const MainPage = () => {
+const SecondaryPage = () => {
     const { theme } = useContext(ThemeContext);
     const [confirmed, setConfirmed] = useState('');
     const [active, setActive] = useState('');
@@ -62,14 +62,14 @@ const MainPage = () => {
 
     return ( 
         <View style = {[styles.mainContainer,{backgroundColor : theme.bg}]}>
-            <Text style = {[styles.date,{color : theme.syntax}]}>Total cases in Pune as of : <Text style = {styles.boldText}>{date}</Text></Text>
+            <Text style = {[styles.date,{color : theme.syntax}]}>Total cases in Maharashtra as of : <Text style = {styles.boldText}>{date}</Text></Text>
             <View style = {styles.mainInfo}>
                 <Confirmed confirmed = {confirmed}/>
                 <Active active = {active}/>
                 <Recovered recovered = {recovered}/>
             </View>
             <View>
-            <Text style = {[styles.maharashtra, {color : theme.syntax}]}>Cases in Pune yesterday</Text>
+            <Text style = {[styles.maharashtra, {color : theme.syntax}]}>Cases in Maharashtra yesterday</Text>
             <Maharashtra 
                 confirmed = {deltaConfirmed}
                 recovered = {deltaRecovered}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
     date : {
         textAlign : 'center', 
-        marginTop : windowHeight/50,
+        marginTop : windowHeight/60,
     },
     boldText : {
         fontWeight : 'bold',
@@ -105,4 +105,4 @@ const styles = StyleSheet.create({
     }
 })
  
-export default MainPage;
+export default SecondaryPage;
