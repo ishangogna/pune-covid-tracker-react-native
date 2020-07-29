@@ -4,6 +4,7 @@ import { ThemeContext } from '../contexts/ThemeContext';
 import Confirmed from '../components/confirmed';
 import Active from '../components/active';
 import Recovered from '../components/recovered';
+import Maharashtra from '../components/maharashtra';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -18,7 +19,9 @@ const MainPage = () => {
     const [month, setMonth] = useState([
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Oct', 'Nov', 'Dec'
     ]);
-    const [delta, setDelta] = useState([])
+    const [deltaConfirmed, setDeltaConfirmed] = useState('');
+    const [deltaDeceased, setDeltaDeceased] = useState('');
+    const [deltaRecovered, setDeltaRecovered] = useState('');
 
     useEffect(()=>{
         var today = new Date();
@@ -30,7 +33,17 @@ const MainPage = () => {
         fetch(delta_url)
         .then(response=>response.json())
         .then(data => {
-           
+          data.states_daily.map(dailyInfo=>{
+              if (dailyInfo.date === '28-Jul-20' && dailyInfo.status === 'Confirmed'){
+                setDeltaConfirmed(dailyInfo.mh);
+              };
+              if (dailyInfo.date === '28-Jul-20' && dailyInfo.status === 'Recovered'){
+                setDeltaRecovered(dailyInfo.mh);
+              };
+              if (dailyInfo.date === '28-Jul-20' && dailyInfo.status === 'Deceased'){
+                setDeltaDeceased(dailyInfo.mh);
+              };
+          })
         });
         
     },[date])
@@ -49,11 +62,19 @@ const MainPage = () => {
 
     return ( 
         <View style = {[styles.mainContainer,{backgroundColor : theme.bg}]}>
-            <Text style = {{color : theme.syntax, textAlign : 'center', marginTop : windowHeight/20}}>{date}</Text>
+            <Text style = {[styles.date,{color : theme.syntax}]}>Total cases in Pune as of : <Text style = {styles.boldText}>{date}</Text></Text>
             <View style = {styles.mainInfo}>
                 <Confirmed confirmed = {confirmed}/>
                 <Active active = {active}/>
                 <Recovered recovered = {recovered}/>
+            </View>
+            <View>
+            <Text style = {[styles.maharashtra, {color : theme.syntax}]}>Cases in Maharashtra yesterday</Text>
+            <Maharashtra 
+                confirmed = {deltaConfirmed}
+                recovered = {deltaRecovered}
+                deceased = {deltaDeceased}
+                />            
             </View>
         </View>
      );
@@ -69,6 +90,19 @@ const styles = StyleSheet.create({
         flexDirection : 'column',
         paddingHorizontal : 50,
     },
+    date : {
+        textAlign : 'center', 
+        marginTop : windowHeight/20,
+    },
+    boldText : {
+        fontWeight : 'bold',
+        fontSize : 16
+    },
+    maharashtra : {
+        fontWeight : 'bold',
+        textAlign : 'center',
+        marginTop : 30,
+    }
 })
  
 export default MainPage;

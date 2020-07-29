@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Tabs from './src/routes/tabs/tabs';
 import ThemeContextProvider from './src/contexts/ThemeContext';
 import HomePage from './src/screens/home';
 
