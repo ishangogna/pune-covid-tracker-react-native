@@ -16,6 +16,7 @@ const MainPage = () => {
     const [active, setActive] = useState('');
     const [recovered, setRecovered] = useState('');
     const [date, setDate] = useState('');
+    const [yesterdayDate, setYesterdayDate] = useState('');
     const [month, setMonth] = useState([
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Oct', 'Nov', 'Dec'
     ]);
@@ -25,28 +26,12 @@ const MainPage = () => {
 
     useEffect(()=>{
         var today = new Date();
+        var yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate()-1);
         setDate(today.getDate().toString() + '-' + month[today.getMonth()] + '-' + today.getFullYear().toString().slice(2,4))
+        setYesterdayDate(yesterday.getDate().toString() + '-' + month[yesterday.getMonth()] + '-' + yesterday.getFullYear().toString().slice(2,4));
     },[])
 
-    useEffect(()=>{
-        const delta_url = 'https://api.covid19india.org/states_daily.json';
-        fetch(delta_url)
-        .then(response=>response.json())
-        .then(data => {
-          data.states_daily.map(dailyInfo=>{
-              if (dailyInfo.date === '28-Jul-20' && dailyInfo.status === 'Confirmed'){
-                setDeltaConfirmed(dailyInfo.mh);
-              };
-              if (dailyInfo.date === '28-Jul-20' && dailyInfo.status === 'Recovered'){
-                setDeltaRecovered(dailyInfo.mh);
-              };
-              if (dailyInfo.date === '28-Jul-20' && dailyInfo.status === 'Deceased'){
-                setDeltaDeceased(dailyInfo.mh);
-              };
-          })
-        });
-        
-    },[date])
 
     const district_url = 'https://api.covid19india.org/state_district_wise.json';
     useEffect(()=>{
@@ -56,6 +41,9 @@ const MainPage = () => {
             setConfirmed(data.Maharashtra.districtData.Pune.confirmed);
             setActive(data.Maharashtra.districtData.Pune.active);
             setRecovered(data.Maharashtra.districtData.Pune.recovered);
+            setDeltaConfirmed(data.Maharashtra.districtData.Pune.delta.confirmed);
+            setDeltaDeceased(data.Maharashtra.districtData.Pune.delta.deceased);
+            setDeltaRecovered(data.Maharashtra.districtData.Pune.delta.recovered);
         })
     },[])
 

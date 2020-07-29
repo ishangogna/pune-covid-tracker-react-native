@@ -13,15 +13,15 @@ const Maharashtra = ({ confirmed, recovered, deceased }) => {
     return ( 
         <View style = {styles.infoContainer}>
             <View style = {styles.component}>
-                <Text style = {[styles.info, {color : theme.syntax}]}>{confirmed}</Text>
+                <Text style = {[styles.info, {color : theme.syntax}]}>{confirmed > 0? confirmed : null}</Text>
                 <Text style = {[styles.title, {color : colors.confirmed}]}>Confirmed</Text>
             </View>
             <View style = {styles.component}>
-                <Text style = {[styles.info, {color : theme.syntax}]}>{recovered}</Text>
+                <Text style = {[styles.info, {color : theme.syntax}]}>{recovered > 0? recovered : null}</Text>
                 <Text style = {[styles.title, {color : colors.recovered}]}>Recovered</Text>
             </View>
             <View style = {styles.component}>
-                <Text style = {[styles.info, {color : theme.syntax}]}>{deceased}</Text>
+                <Text style = {[styles.info, {color : theme.syntax}]}>{deceased > 0? deceased : null}</Text>
                 <Text style = {[styles.title, {color : 'grey'}]}>Deceased</Text>
             </View>
         </View>

@@ -16,6 +16,7 @@ const SecondaryPage = () => {
     const [deceased, setDeceased] = useState('');
     const [recovered, setRecovered] = useState('');
     const [date, setDate] = useState('');
+    const [yesterdayDate, setYesterdayDate] = useState('');
     const [month, setMonth] = useState([
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Oct', 'Nov', 'Dec'
     ]);
@@ -24,7 +25,10 @@ const SecondaryPage = () => {
     const [deltaRecovered, setDeltaRecovered] = useState('');
     useEffect(()=>{
         var today = new Date();
+        var yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate()-1);
         setDate(today.getDate().toString() + '-' + month[today.getMonth()] + '-' + today.getFullYear().toString().slice(2,4))
+        setYesterdayDate(yesterday.getDate().toString() + '-' + month[yesterday.getMonth()] + '-' + yesterday.getFullYear().toString().slice(2,4));
     },[])
 
     useEffect(()=>{
@@ -33,13 +37,13 @@ const SecondaryPage = () => {
         .then(response=>response.json())
         .then(data => {
           data.states_daily.map(dailyInfo=>{
-              if (dailyInfo.date === '28-Jul-20' && dailyInfo.status === 'Confirmed'){
+              if (dailyInfo.date === yesterdayDate && dailyInfo.status === 'Confirmed'){
                 setDeltaConfirmed(dailyInfo.mh);
               };
-              if (dailyInfo.date === '28-Jul-20' && dailyInfo.status === 'Recovered'){
+              if (dailyInfo.date === yesterdayDate && dailyInfo.status === 'Recovered'){
                 setDeltaRecovered(dailyInfo.mh);
               };
-              if (dailyInfo.date === '28-Jul-20' && dailyInfo.status === 'Deceased'){
+              if (dailyInfo.date === yesterdayDate && dailyInfo.status === 'Deceased'){
                 setDeltaDeceased(dailyInfo.mh);
               };
           })
@@ -56,7 +60,6 @@ const SecondaryPage = () => {
             setConfirmed(data[todayDate]['MH']['total']['confirmed']);
             setDeceased(data[todayDate]['MH']['total']['deceased']);
             setRecovered(data[todayDate]['MH']['total']['recovered']);
-            
         })
     },[date])
 

@@ -29,6 +29,7 @@ export default function Swipe(props){
             {...props}
             indicatorStyle={{ backgroundColor: '#FF3B53' }}
             activeColor = '#1DA1F2'
+            inactiveColor = {theme.syntax}
             style={{ backgroundColor: theme.bg, color : theme.syntax}}
         />
         );
