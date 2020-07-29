@@ -14,6 +14,16 @@ const MainPage = () => {
     const [confirmed, setConfirmed] = useState('');
     const [active, setActive] = useState('');
     const [recovered, setRecovered] = useState('');
+    const [date, setDate] = useState('');
+    const [month, setMonth] = useState([
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Oct', 'Nov', 'Dec'
+    ]);
+
+    useEffect(()=>{
+        var today = new Date();
+        setDate(today.getDate().toString() + '-' + month[today.getMonth()] + '-' + today.getFullYear().toString().slice(2,4))
+    },[date])
+
     const url = 'https://api.covid19india.org/state_district_wise.json';
     useEffect(()=>{
         fetch(url)
@@ -27,6 +37,7 @@ const MainPage = () => {
     return ( 
         <View style = {[styles.mainContainer,{backgroundColor : theme.bg}]}>
             <Text style = {[styles.header,{color : theme.syntax}]}>Corona Tracker</Text>
+            <Text style = {{color : theme.syntax}}>{date}</Text>
             <View style = {styles.mainInfo}>
                 <Confirmed confirmed = {confirmed}/>
                 <Active active = {active}/>
