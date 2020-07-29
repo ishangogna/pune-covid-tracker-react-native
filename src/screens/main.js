@@ -26,7 +26,7 @@ const MainPage = () => {
     useEffect(()=>{
         var today = new Date();
         setDate(today.getDate().toString() + '-' + month[today.getMonth()] + '-' + today.getFullYear().toString().slice(2,4))
-    },[date])
+    },[])
 
     useEffect(()=>{
         const delta_url = 'https://api.covid19india.org/states_daily.json';

@@ -13,7 +13,7 @@ const windowHeight = Dimensions.get('window').height;
 const SecondaryPage = () => {
     const { theme } = useContext(ThemeContext);
     const [confirmed, setConfirmed] = useState('');
-    const [active, setActive] = useState('');
+    const [deceased, setDeceased] = useState('');
     const [recovered, setRecovered] = useState('');
     const [date, setDate] = useState('');
     const [month, setMonth] = useState([
@@ -22,11 +22,10 @@ const SecondaryPage = () => {
     const [deltaConfirmed, setDeltaConfirmed] = useState('');
     const [deltaDeceased, setDeltaDeceased] = useState('');
     const [deltaRecovered, setDeltaRecovered] = useState('');
-
     useEffect(()=>{
         var today = new Date();
         setDate(today.getDate().toString() + '-' + month[today.getMonth()] + '-' + today.getFullYear().toString().slice(2,4))
-    },[date])
+    },[])
 
     useEffect(()=>{
         const delta_url = 'https://api.covid19india.org/states_daily.json';
@@ -48,16 +47,18 @@ const SecondaryPage = () => {
         
     },[date])
 
-    const district_url = 'https://api.covid19india.org/state_district_wise.json';
+    const state_url = 'https://api.covid19india.org/v4/data-all.json';
     useEffect(()=>{
-        fetch(district_url)
+        fetch(state_url)
         .then(response=>response.json())
         .then(data=>{
-            setConfirmed(data.Maharashtra.districtData.Pune.confirmed);
-            setActive(data.Maharashtra.districtData.Pune.active);
-            setRecovered(data.Maharashtra.districtData.Pune.recovered);
+            var todayDate = new Date().toISOString().slice(0,10); 
+            setConfirmed(data[todayDate]['MH']['total']['confirmed']);
+            setDeceased(data[todayDate]['MH']['total']['deceased']);
+            setRecovered(data[todayDate]['MH']['total']['recovered']);
+            
         })
-    },[])
+    },[date])
 
 
     return ( 
@@ -65,7 +66,7 @@ const SecondaryPage = () => {
             <Text style = {[styles.date,{color : theme.syntax}]}>Total cases in Maharashtra as of : <Text style = {styles.boldText}>{date}</Text></Text>
             <View style = {styles.mainInfo}>
                 <Confirmed confirmed = {confirmed}/>
-                <Active active = {active}/>
+                <Active active = {confirmed - deceased - recovered}/>
                 <Recovered recovered = {recovered}/>
             </View>
             <View>

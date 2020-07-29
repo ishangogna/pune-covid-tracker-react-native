@@ -22,7 +22,7 @@ const Maharashtra = ({ confirmed, recovered, deceased }) => {
             </View>
             <View style = {styles.component}>
                 <Text style = {[styles.info, {color : theme.syntax}]}>{deceased}</Text>
-                <Text style = {[styles.title, {color : colors.active}]}>Deceased</Text>
+                <Text style = {[styles.title, {color : 'grey'}]}>Deceased</Text>
             </View>
         </View>
      );
