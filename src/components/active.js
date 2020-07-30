@@ -19,7 +19,7 @@ const Active = ({ active, delta}) => {
 }
 const styles = StyleSheet.create({
     infoContainer : {
-        height : 70,
+        height : 'auto',
         justifyContent : 'space-between',
         alignItems : 'center',
         backgroundColor : colors.activeLight,

@@ -2,11 +2,16 @@
   "expo": {
    "name": "CovidIG",
    "icon": "./assets/appIcon.png",
-   "version": "1.0.0",
+   "splash": {
+    "image": "./assets/splashScreen.png",
+    "backgroundColor": "#000000",
+    "resizeMode": "cover"
+  },
+   "version": "2.0.0",
    "slug": "CovidIG",
    "android": {
      "package": "com.gognatech.IGCovid",
-     "versionCode": 1
+     "versionCode": 2
    }
   }
 }
