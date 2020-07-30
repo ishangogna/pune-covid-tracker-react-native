@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, ScrollView } from 'react-native';
 import { ThemeContext } from '../contexts/ThemeContext';
 import Confirmed from '../components/confirmed';
 import Active from '../components/active';
@@ -66,20 +66,22 @@ const SecondaryPage = () => {
 
     return ( 
         <View style = {[styles.mainContainer,{backgroundColor : theme.bg}]}>
-            <Text style = {[styles.date,{color : theme.syntax}]}>Total cases in Maharashtra as of : <Text style = {styles.boldText}>{date}</Text></Text>
-            <View style = {styles.mainInfo}>
-                <Confirmed confirmed = {confirmed}/>
-                <Active active = {confirmed - deceased - recovered}/>
-                <Recovered recovered = {recovered}/>
-            </View>
-            <View>
-            <Text style = {[styles.maharashtra, {color : theme.syntax}]}>Cases in Maharashtra yesterday</Text>
-            <Maharashtra 
-                confirmed = {deltaConfirmed}
-                recovered = {deltaRecovered}
-                deceased = {deltaDeceased}
-                />            
-            </View>
+            <ScrollView showsVerticalScrollIndicator = {false} >
+                <Text style = {[styles.date,{color : theme.syntax}]}>Total cases in Maharashtra as of : <Text style = {styles.boldText}>{date}</Text></Text>
+                <View style = {styles.mainInfo}>
+                    <Confirmed confirmed = {confirmed}/>
+                    <Active active = {confirmed - deceased - recovered}/>
+                    <Recovered recovered = {recovered}/>
+                </View>
+                <View>
+                <Text style = {[styles.maharashtra, {color : theme.syntax}]}>Cases in Maharashtra yesterday</Text>
+                <Maharashtra 
+                    confirmed = {deltaConfirmed}
+                    recovered = {deltaRecovered}
+                    deceased = {deltaDeceased}
+                    />            
+                </View>
+            </ScrollView>
         </View>
      );
 }

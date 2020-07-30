@@ -20,16 +20,13 @@ const Confirmed = ({ confirmed, delta }) => {
 }
 const styles = StyleSheet.create({
     infoContainer : {
-        height : windowHeight/9,
+        height : 70,
         justifyContent : 'space-between',
         alignItems : 'center',
         backgroundColor : colors.confirmedLight,
         padding : 10,
         borderRadius : windowHeight/80,
         marginBottom : 10,
-    },
-    numbers : {
-        alignItems : 'center'
     },
     title : {
         color : colors.confirmed,
